@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Sidebar width on large screens */
+        #sidebar {
+            width: 270px;
+            height: 100vh;
+        }
+
+        /* Hide sidebar on small screens */
+        @media (max-width: 991px) {
+            #sidebar {
+                display: none;
+            }
+        }
+
+        /* Main content margin for large screens */
+        .main-content {
+            margin-left: 270px;
+        }
+
+        @media (max-width: 991px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content nav {
+                margin-left: -10px !important;
+            }
+
+            .x2 {
+                margin-top: 0px;
+            }
+
+            #mobileSidebar {
+                margin-top: 80px;
+            }
+
+            .x3 {
+                margin-top: -40px;
+            }
+
+            .x4 {
+                margin-top: -40px;
+            }
+
+            .x5-card {
+                margin-top: 40px;
+            }
+
+            .x10 {
+                margin-right: -50px;
+            }
+        }
+
+        .main-content nav {
+            margin-left: -270px;
+        }
+
+        .badge {
+            background-color: #eeadf8;
+            color: #6f00ff;
+        }
+
+        .span_badge:hover {
+            background-color: #e11eff;
+        }
+
+        .delete_button {
+            transition: filter 0.3s ease-in-out;
+        }
+
+        .delete_button img:hover {
+            filter: brightness(50%) sepia(80%) hue-rotate(-10deg) saturate(200%);
+            rotate: 20deg;
+        }
+
+        .pagination_tab ul li {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 1px solid black;
+            text-align: center;
+
+        }
+
+        .pagination_tab ul li a {
+            text-decoration: none;
+            margin-top: 200px !important;
+            color: black;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d-flex">
+
+        <!-- Sidebar (Hidden on small screens) -->
+        <nav id="sidebar" class="bg-light shadow-lg position-fixed d-lg-flex flex-column vh-100 pt-lg-4"
+            style="width: 250px;z-index: 55000;top: 80px;">
+
+            <ul class="nav flex-column px-3">
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#">
+                        <i class="bi bi-grid-1x2 me-2"></i> Dashboard
+                        <i class="bi bi-chevron-right ms-auto"></i>
+                    </a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#" id="teamDropdown">
+                        <i class="bi bi-person me-2"></i> Team Member
+                        <i class="bi bi-chevron-right ms-auto"></i>
+                    </a>
+                    <ul class="list-unstyled ms-4 collapse" id="teamDropdownMenu">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-person me-2"></i> Team Member
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Certification
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#">
+                        <i class="bi bi-cast me-2"></i> Project
+                        <i class="bi bi-chevron-right ms-auto"></i>
+                    </a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#">
+                        <i class="bi bi-person-badge me-2"></i> Client
+                        <i class="bi bi-chevron-right ms-auto"></i>
+                    </a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#" id="learning_path_dropdown">
+                        <i class="bi bi-person me-2"></i> Learning Path
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="list-unstyled ms-4 collapse" id="learning_path_dropdownMenu">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-person me-2"></i> Learning Path
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Cources
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Skills Sets
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid main-content p-0">
+            <!-- Top Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow position-fixed w-100 x10"
+                style="height: 80px; z-index: 12000;">
+                <div class="container-fluid">
+                    <!-- Sidebar Toggle Button for Small Screens -->
+                    <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <div class=" p-3 text-center d-none d-md-none d-lg-block">
+                        <img src="logo.png" alt="Logo" class="" height="50" width="120px" style="">
+                    </div>
+
+                    <div class="row w-100 align-items-center">
+                        <!-- Left Section: Page Title & Breadcrumbs -->
+                        <div class="col-1 col-lg-2 d-none d-md-block"></div>
+                        <div class="col-lg-4 col-md-6 col-12 d-none d-lg-block">
+                            <div class="d-flex flex-column d-none d-md-block" style="margin-left: -100px;">
+                                <h6 class="m-0 fw-bold">Create New Learning Path</h6>
+                                <p class="text-muted small m-0">Learning Path > Learning Path > Create New Learning Path
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12 d-block d-lg-none">
+
+                        </div>
+
+                        <!-- Right Section: Icons & User Profile -->
+                        <div class="col-2  d-md-none"></div>
+                        <div class="col-lg-6 col-md-4 col-10 d-flex justify-content-end align-items-center x2">
+                            <div class="x3">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+                                    alt="Flag" width="24" height="16" class="me-2">
+                                <span class="me-3">EN(UK)</span>
+                                <i class="bi bi-bell me-3"></i>
+                                <i class="bi bi-gear me-3"></i>
+                            </div>
+
+                            <!-- User Profile -->
+                            <div class="x4">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWoIK1UbwcOWwI6C6_rR6eKWDlOmNWq2w0P7h9RAuW8kqwg6Ku7pWf7blG&s=10"
+                                        alt="Admin" width="36" height="36" class="rounded-circle me-2">
+                                    <div>
+                                        <p class="m-0 fw-bold">Megan Roberts</p>
+                                        <p class="m-0 text-muted small">Admin</p>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-arrow-down-circle-fill"></i>
+                                        </button>
+                                        <ul class="dropdown-menu"
+                                            style="margin-left: -130px;border: 2px solid gray;margin-top: 5px;">
+                                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+
+            <!-- Content Area -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 " style="margin-top:75px !important;">
+
+                        <!-- middle section card -->
+                        <div class="card x5-card mt-lg-4 ">
+                            <div class="card-body">
+
+                                <!-- top part of card -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row d-flex align-items-center">
+                                            <!-- Heading Section -->
+                                            <div class="col-12 col-md-5 text-center text-md-start">
+                                                <h5 class="m-0 p-0">Create New Learning Path</h5>
+                                            </div>
+
+                                            <!-- Spacer for larger screens -->
+                                            <div class="d-none d-md-block col-md-3"></div>
+
+                                            <!-- Buttons Section -->
+                                            <div
+                                                class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end mt-2 mt-md-0">
+                                                <button type="button"
+                                                    class="btn btn-outline-danger me-2 btn-sm btn-md">Cancel</button>
+                                                <button type="button"
+                                                    class="btn btn-primary btn-sm btn-md">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row d-flex align-items-center text-center text-md-start">
+                                            <!-- Profile Section -->
+                                            <div
+                                                class="col-12 col-md-2 d-flex flex-column align-items-center position-relative order-md-1 order-1 mb-3 mb-md-0">
+
+                                                <img src="learning_path.png" class="men-profile" alt="" height="120"
+                                                    width="120" style="border-radius: 50%; border: 1px solid black;">
+                                            </div>
+
+
+                                            <div class="col-12 text-start col-md-10 order-md-2 order-1">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label d-block text-start">Learning Path
+                                                            </label>
+                                                            <input type="text"
+                                                                class="form-control form-control-sm w-100"
+                                                                placeholder="John">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 mt-0 mt-lg-2">
+                                                        <div class="mb-3">
+                                                            <label class="form-label m-0">Cources</label>
+                                                            <select class="form-select form-select-sm">
+                                                                <option selected>Select Cources</option>
+                                                                <option>HTML</option>
+                                                                <option>CSS</option>
+                                                                <option>JAVASCRIPT</option>
+                                                                <option>BOOTSTRAP</option>
+                                                                <option>PYTHON</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="">Description</label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                placeholder="Description...." id="floatingTextarea2"
+                                                                rows="4"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4 mb-4">
+
+                                <!-- cources section -->
+                                <div class="row p-2">
+                                    <div class="card-body border">
+                                        <div class="col-12">
+                                            <div class="row">
+
+                                                <div class="row d-none d-lg-block w-100 m-0 p-0">
+                                                    <div class="col-12 w-100 m-0 p-0">
+                                                        <table class="table ">
+                                                            <thead class="table-secondary">
+                                                                <th class="col-3">Cources</th>
+                                                                <th class="col-4">Skill Sets</th>
+                                                                <th class="col-4">Description</th>
+                                                                <th class="col-1">Action</th>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <!-- first item of courses -->
+                                                <div class="col-12 col-md-6 col-lg-12 border mt-3 p-3">
+                                                    <div class="col-12">
+                                                        <div class="row">
+
+                                                            <div class="col-12 col-md-12 col-lg-3">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold">Cources</span>
+                                                                <div class="d-flex align-items-center pt-1 pb-1 ">
+                                                                    <div>
+                                                                        <img src="web dev.png" alt="" height="45"
+                                                                            width="45">
+                                                                    </div>
+                                                                    <div class="m-0 p-0 ms-3">
+                                                                        <p class="m-0 p-0 fw-bold">Web
+                                                                            Developement
+                                                                        </p>
+                                                                        <span
+                                                                            class="m-0 p-0 d-flex align-items-center"><span
+                                                                                class="d-block d-md-none d-xl-block ">Duration</span>
+                                                                            <img src="clock.png" height="15" width="15"
+                                                                                class="ms-2 me-2">
+                                                                            <span class="text-primary">80
+                                                                                Hrs</span> </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Skill
+                                                                    Sets</span>
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-start mt-0 pt-2 pb-1 flex-wrap ">
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-0">HTML</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">CSS</span>
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">PYTHON</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">JAVA</span>
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">BOOTSTRAP</span>
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">JAVASCRIPT</span>
+                                                                    <span
+                                                                        class="span_badge  p-1  ms-1 fw-bold text-center"
+                                                                        style="border:1px solid black;border-radius: 50%;height: 30px;width: 30px;font-size: 12px;">+2</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Description</span>
+                                                                <div
+                                                                    class="d-flex flex-column justify-content-center mt-0 pt-1 pb-1">
+                                                                    <p class="text-primary m-0 p-0">
+                                                                        https://app.intimepro.io/app/main/dashboard
+                                                                    </p>
+                                                                    <p class="text-secondary m-0 p-0">ID :
+                                                                        tejasborate7@gmail.com</p>
+                                                                    <p class="text-secondary m-0 p-0">Password :
+                                                                        pass123
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-1 text-center">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold">Action</span>
+                                                                <div class="mt-1 mt-lg-4 delete_button">
+                                                                    <img src="delete.png" alt="" height="25" width="22">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- second item of courses -->
+                                                <div class="col-12 col-md-6 col-lg-12 border mt-3 p-3">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-3">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Cources</span>
+                                                                <div class="d-flex align-items-center pt-1 pb-1 ">
+                                                                    <div>
+                                                                        <img src="ui.png" alt="" height="45" width="45">
+                                                                    </div>
+                                                                    <div class="m-0 p-0 ms-3">
+                                                                        <p class="m-0 p-0 fw-bold">UI Developement
+                                                                        </p>
+                                                                        <span
+                                                                            class="m-0 p-0 d-flex align-items-center"><span
+                                                                                class="d-block d-md-none d-xl-block ">Duration</span>
+                                                                            <img src="clock.png" height="15" width="15"
+                                                                                class="ms-2 me-2">
+                                                                            <span class="text-primary">85
+                                                                                Hrs</span> </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Skill
+                                                                    Sets</span>
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-startmt-0 pt-2 pb-1 flex-wrap ">
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-0">HTML</span>
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">PYTHON</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">CSS</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">JAVA</span>
+
+                                                                    <span
+                                                                        class="span_badge  p-1  ms-1 fw-bold text-center"
+                                                                        style="border:1px solid black;border-radius: 50%;height: 30px;width: 30px;font-size: 12px;">+3</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Description</span>
+                                                                <div
+                                                                    class="d-flex flex-column justify-content-center mt-0 pt-1 pb-1">
+                                                                    <p class="text-primary m-0 p-0">
+                                                                        https://sample/edu.in</p>
+                                                                    <p class="text-secondary m-0 p-0">ID :
+                                                                        adum.murthp@gmail.in</p>
+                                                                    <p class="text-secondary m-0 p-0">Password :
+                                                                        adam#2323
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-1 text-center">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Action</span>
+                                                                <div class=" mt-1 mt-lg-4 delete_button">
+                                                                    <img src="delete.png" alt="" height="25" width="22">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <!-- third item of courses -->
+                                                <div class="col-12 col-md-6 col-lg-12 border mt-3 p-3">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-3">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Cource</span>
+                                                                <div class="d-flex align-items-center pt-1 pb-1 ">
+                                                                    <div>
+                                                                        <img src="powerbi.png" alt="" height="45"
+                                                                            width="45">
+                                                                    </div>
+                                                                    <div class="m-0 p-0 ms-3">
+                                                                        <p class="m-0 p-0 fw-bold">POWER BI
+                                                                        </p>
+                                                                        <span
+                                                                            class="m-0 p-0 d-flex align-items-center"><span
+                                                                                class="d-block d-md-none d-xl-block ">Duration</span>
+                                                                            <img src="clock.png" height="15" width="15"
+                                                                                class="ms-2 me-2">
+                                                                            <span class="text-primary">65
+                                                                                Hrs</span> </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Skill
+                                                                    Sets</span>
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-startmt-0 pt-2 pb-1 flex-wrap ">
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-0">HTML</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">CSS</span>
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">PYTHON</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">JAVA</span>
+
+                                                                    <span
+                                                                        class="span_badge  p-1  ms-1 fw-bold text-center"
+                                                                        style="border:1px solid black;border-radius: 50%;height: 30px;width: 30px;font-size: 12px;">+3</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Description</span>
+                                                                <div
+                                                                    class="d-flex flex-column justify-content-center mt-0 pt-1 pb-1">
+                                                                    <p class="text-primary m-0 p-0">
+                                                                        https://sample.org/head</p>
+                                                                    <p class="text-secondary m-0 p-0">ID :
+                                                                        tejasborate7@gmail.com</p>
+                                                                    <p class="text-secondary m-0 p-0">Password :
+                                                                        sdfsdssdd@
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-1 text-center">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Action</span>
+                                                                <div class=" mt-1 mt-lg-4 delete_button">
+                                                                    <img src="delete.png" alt="" height="25" width="22">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <!-- fourth item of courses -->
+                                                <div class="col-12 col-md-6 col-lg-12 border mt-3 p-3">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-3">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Course</span>
+                                                                <div class="d-flex align-items-center pt-1 pb-1 ">
+                                                                    <div>
+                                                                        <img src="database.png" alt="" height="45"
+                                                                            width="45">
+                                                                    </div>
+                                                                    <div class="m-0 p-0 ms-3">
+                                                                        <p class="m-0 p-0 fw-bold">DATABASE
+                                                                        </p>
+                                                                        <span
+                                                                            class="m-0 p-0 d-flex align-items-center"><span
+                                                                                class="d-block d-md-none d-xl-block ">Duration</span>
+                                                                            <img src="clock.png" height="15" width="15"
+                                                                                class="ms-2 me-2">
+                                                                            <span class="text-primary">72
+                                                                                Hrs</span> </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Skill
+                                                                    Sets</span>
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-startmt-0 pt-2 pb-1 flex-wrap ">
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-0">CSS</span>
+                                                                    <span class="badge  p-1 ps-2 pe-2 ms-2">JAVA</span>
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">BOOTSTRAP</span>
+
+                                                                    <span
+                                                                        class="badge  p-1 ps-2 pe-2 ms-2">BOOTSTRAP</span>
+
+                                                                    <span
+                                                                        class="span_badge  p-1  ms-1 fw-bold text-center"
+                                                                        style="border:1px solid black;border-radius: 50%;height: 30px;width: 30px;font-size: 12px;">+2</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-4">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Description</span>
+                                                                <div
+                                                                    class="d-flex flex-column justify-content-center mt-0 pt-1 pb-1">
+                                                                    <p class="text-primary m-0 p-0">
+                                                                        https://app.intimepro.io/app/main/dashboard</p>
+                                                                    <p class="text-secondary m-0 p-0">ID :
+                                                                        tejasborate7@gmail.com</p>
+                                                                    <p class="text-secondary m-0 p-0">Password : pass123
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-1 text-center">
+                                                                <span
+                                                                    class="d-block d-md-block d-lg-none fw-bold mt-2">Action</span>
+                                                                <div class="mt-1 mt-lg-4 delete_button">
+                                                                    <img src="delete.png" alt="" height="25" width="22">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <hr>
+
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end pagination_tab ">
+                                        <ul class="pagination  fw-bold d-flex text-dark me-3">
+                                            <li class="disabled">
+                                                <a class="" href="#">
+                                                    << </a>
+
+                                            </li>
+                                            <li class="page-item disabled" aria-current="page">
+                                                <a class="" href="#">
+                                                    < </a>
+                                            </li>
+                                            <li class="">
+                                                <a class="mt-2" href="#">1</a>
+                                            </li>
+                                            <li class="bg-primary">
+                                                <a class="" href="#">2</a>
+                                            </li>
+                                            <li class="">
+                                                <a class="" href="#">3</a>
+                                            </li>
+
+                                            <li class="">
+                                                <a class="" href="#">4</a>
+                                            </li>
+                                            <li class="">
+                                                <a class="" href="#">-</a>
+                                            </li>
+                                            <li class="">
+                                                <a class="" href="#">90</a>
+                                            </li>
+                                            <li class="">
+                                                <a class="" href="#">></a>
+                                            </li>
+                                            <li class="">
+                                                <a class="" href="#">>></a>
+                                            </li>
+
+
+                                        </ul>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Offcanvas Sidebar for Mobile -->
+        <!-- Offcanvas Sidebar for Mobile -->
+        <div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="mobileSidebar" style="width: 350px;">
+            <div class="mt-2 text-center">
+                <img src="logo.png" alt="Logo" class="" height="50" width="120px"
+                    style="margin-left: -200px !important">
+            </div>
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body" style="margin-left: -18px;">
+                <ul class="nav flex-column px-3">
+                    <li class="nav-item" style="margin-left: -8px;">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-grid-1x2 px-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#" id="teamDropdown1">
+                            <i class="bi bi-person me-2"></i> Team Member
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul class="list-unstyled ms-4 collapse" id="teamDropdownMenu1">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-person me-2"></i> Team Member
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Certification
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-cast me-2"></i> Project
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-person-badge me-2"></i> Client
+                        </a>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link d-flex align-items-center" href="#" id="learning_path_dropdown1">
+                            <i class="bi bi-person me-2"></i> Learning Path
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul class="list-unstyled ms-4 collapse" id="learning_path_dropdownMenu1">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-person me-2"></i> Learning Path
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Cources
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Skills Sets
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+
+
+<script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("teamDropdown");
+        const dropdownMenu = document.getElementById("teamDropdownMenu");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse"); // Bootstrap class for expanding/collapsing
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("teamDropdown1");
+        const dropdownMenu = document.getElementById("teamDropdownMenu1");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse"); // Bootstrap class for expanding/collapsing
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("learning_path_dropdown");
+        const dropdownMenu = document.getElementById("learning_path_dropdownMenu");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse"); // Bootstrap class for expanding/collapsing
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("learning_path_dropdown1");
+        const dropdownMenu = document.getElementById("learning_path_dropdownMenu1");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse"); // Bootstrap class for expanding/collapsing
+        });
+    });
+
+</script>
